@@ -15,7 +15,7 @@ typedef void(^TwitterManagerSuccessHandler)(BOOL success);
 
 @interface TwitterManager : NSObject
 
-@property (nonatomic, readonly) NSArray *accounts;
+@property (nonatomic, readonly, retain) NSArray *accounts;
 @property (nonatomic, retain) ACAccount *selectedAccount;
 @property (nonatomic, assign) BOOL accessGranted;
 

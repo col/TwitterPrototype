@@ -24,6 +24,14 @@
 		EF586454153C18950055D27A /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF586453153C18950055D27A /* Accounts.framework */; };
 		EF586457153C31CB0055D27A /* TwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF586456153C31CB0055D27A /* TwitterManager.m */; };
 		EF586458153C31CB0055D27A /* TwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF586456153C31CB0055D27A /* TwitterManager.m */; };
+		EFEA4EB9153C601A008D0E3D /* btn-bg-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = EFEA4EB3153C601A008D0E3D /* btn-bg-selected.png */; };
+		EFEA4EBA153C601A008D0E3D /* btn-bg-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFEA4EB4153C601A008D0E3D /* btn-bg-selected@2x.png */; };
+		EFEA4EBB153C601A008D0E3D /* btn-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = EFEA4EB5153C601A008D0E3D /* btn-bg.png */; };
+		EFEA4EBC153C601A008D0E3D /* btn-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFEA4EB6153C601A008D0E3D /* btn-bg@2x.png */; };
+		EFEA4EBD153C601A008D0E3D /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = EFEA4EB7153C601A008D0E3D /* twitter.png */; };
+		EFEA4EBE153C601A008D0E3D /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFEA4EB8153C601A008D0E3D /* twitter@2x.png */; };
+		EFEA4EC1153C6044008D0E3D /* TwitterFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EFEA4EC0153C6044008D0E3D /* TwitterFollowButton.m */; };
+		EFEA4EC2153C6044008D0E3D /* TwitterFollowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EFEA4EC0153C6044008D0E3D /* TwitterFollowButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +68,14 @@
 		EF586453153C18950055D27A /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		EF586455153C31CB0055D27A /* TwitterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterManager.h; sourceTree = "<group>"; };
 		EF586456153C31CB0055D27A /* TwitterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterManager.m; sourceTree = "<group>"; };
+		EFEA4EB3153C601A008D0E3D /* btn-bg-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn-bg-selected.png"; path = "Resources/btn-bg-selected.png"; sourceTree = "<group>"; };
+		EFEA4EB4153C601A008D0E3D /* btn-bg-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn-bg-selected@2x.png"; path = "Resources/btn-bg-selected@2x.png"; sourceTree = "<group>"; };
+		EFEA4EB5153C601A008D0E3D /* btn-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn-bg.png"; path = "Resources/btn-bg.png"; sourceTree = "<group>"; };
+		EFEA4EB6153C601A008D0E3D /* btn-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn-bg@2x.png"; path = "Resources/btn-bg@2x.png"; sourceTree = "<group>"; };
+		EFEA4EB7153C601A008D0E3D /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twitter.png; path = Resources/twitter.png; sourceTree = "<group>"; };
+		EFEA4EB8153C601A008D0E3D /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "twitter@2x.png"; path = "Resources/twitter@2x.png"; sourceTree = "<group>"; };
+		EFEA4EBF153C6044008D0E3D /* TwitterFollowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterFollowButton.h; sourceTree = "<group>"; };
+		EFEA4EC0153C6044008D0E3D /* TwitterFollowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterFollowButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +139,7 @@
 		EF586422153C16F60055D27A /* TwitterPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				EFEA4EB1153C6008008D0E3D /* Resources */,
 				EF58642B153C16F60055D27A /* AppDelegate.h */,
 				EF58642C153C16F60055D27A /* AppDelegate.m */,
 				EF58642E153C16F60055D27A /* MainStoryboard.storyboard */,
@@ -131,6 +148,8 @@
 				EF586423153C16F60055D27A /* Supporting Files */,
 				EF586455153C31CB0055D27A /* TwitterManager.h */,
 				EF586456153C31CB0055D27A /* TwitterManager.m */,
+				EFEA4EBF153C6044008D0E3D /* TwitterFollowButton.h */,
+				EFEA4EC0153C6044008D0E3D /* TwitterFollowButton.m */,
 			);
 			path = TwitterPrototype;
 			sourceTree = "<group>";
@@ -163,6 +182,19 @@
 				EF586443153C16F70055D27A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EFEA4EB1153C6008008D0E3D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EFEA4EB3153C601A008D0E3D /* btn-bg-selected.png */,
+				EFEA4EB4153C601A008D0E3D /* btn-bg-selected@2x.png */,
+				EFEA4EB5153C601A008D0E3D /* btn-bg.png */,
+				EFEA4EB6153C601A008D0E3D /* btn-bg@2x.png */,
+				EFEA4EB7153C601A008D0E3D /* twitter.png */,
+				EFEA4EB8153C601A008D0E3D /* twitter@2x.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,6 +270,12 @@
 			files = (
 				EF586427153C16F60055D27A /* InfoPlist.strings in Resources */,
 				EF586430153C16F60055D27A /* MainStoryboard.storyboard in Resources */,
+				EFEA4EB9153C601A008D0E3D /* btn-bg-selected.png in Resources */,
+				EFEA4EBA153C601A008D0E3D /* btn-bg-selected@2x.png in Resources */,
+				EFEA4EBB153C601A008D0E3D /* btn-bg.png in Resources */,
+				EFEA4EBC153C601A008D0E3D /* btn-bg@2x.png in Resources */,
+				EFEA4EBD153C601A008D0E3D /* twitter.png in Resources */,
+				EFEA4EBE153C601A008D0E3D /* twitter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +314,7 @@
 				EF58642D153C16F60055D27A /* AppDelegate.m in Sources */,
 				EF586433153C16F60055D27A /* ViewController.m in Sources */,
 				EF586457153C31CB0055D27A /* TwitterManager.m in Sources */,
+				EFEA4EC1153C6044008D0E3D /* TwitterFollowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +324,7 @@
 			files = (
 				EF586448153C16F70055D27A /* TwitterPrototypeTests.m in Sources */,
 				EF586458153C31CB0055D27A /* TwitterManager.m in Sources */,
+				EFEA4EC2153C6044008D0E3D /* TwitterFollowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +484,7 @@
 				EF58644D153C16F70055D27A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EF58644E153C16F70055D27A /* Build configuration list for PBXNativeTarget "TwitterPrototypeTests" */ = {
 			isa = XCConfigurationList;
@@ -452,6 +493,7 @@
 				EF586450153C16F70055D27A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

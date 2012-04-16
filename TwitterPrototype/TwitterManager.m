@@ -43,19 +43,16 @@
 {
     [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
         
-        NSLog(@"Access Granted = %@", granted ? @"YES" : @"NO");
         self.accessGranted = granted;
         if( granted )
             self.accounts = [accountStore accountsWithAccountType:accountType];
-        handler(granted);        
+        if( handler ) handler(granted);        
         
     }];
 }
 
 - (void)followUser:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler
-{
-    NSLog(@"followUser: %@ usingBlock:", username);
-    
+{  
     if( !self.selectedAccount ) {
         NSLog(@"No account selected!");
         return;
@@ -99,9 +96,7 @@
 }
 
 - (void)unfollowUser:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler
-{
-    NSLog(@"unfollowUser: %@", username);
-    
+{   
     if( !self.selectedAccount ) {
         NSLog(@"No account selected!");
         return;
@@ -144,9 +139,7 @@
 }
 
 - (void)isFollowing:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler
-{
-    NSLog(@"isFollowing: %@", username);
-    
+{   
     if( !self.selectedAccount ) {
         NSLog(@"No account selected!");
         return;

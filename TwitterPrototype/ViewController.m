@@ -26,6 +26,8 @@
 
     // create a twitter manager
     twitterManager = [[TwitterManager alloc] init];
+        
+    self.followToggleButton.twitterManager = twitterManager;
     
     [self updateUI];
 }
@@ -51,25 +53,8 @@
         self.accountsLabel.text = accountsString;                                       
         
         // Follow / Unfollow Button
-        self.followToggleButton.hidden = YES;
-        UIActivityIndicatorView *spinner = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
-        spinner.frame = self.followToggleButton.frame;
-        [spinner startAnimating];
-        [self.view addSubview:spinner];
-        [self.twitterManager isFollowing:@"AppStore" usingBlock:^(BOOL following) {
-            if( following ) {
-                [self.followToggleButton setTitle:@"Unfollow" forState:UIControlStateNormal];
-                [self.followToggleButton removeTarget:self action:@selector(followAppStore:) forControlEvents:UIControlEventTouchUpInside];
-                [self.followToggleButton addTarget:self action:@selector(unfollowAppStore:) forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                [self.followToggleButton setTitle:@"Follow" forState:UIControlStateNormal];                
-                [self.followToggleButton removeTarget:self action:@selector(unfollowAppStore:) forControlEvents:UIControlEventTouchUpInside];                
-                [self.followToggleButton addTarget:self action:@selector(followAppStore:) forControlEvents:UIControlEventTouchUpInside];                
-            }
-            self.followToggleButton.hidden = NO;
-            [spinner removeFromSuperview];
-        }];
-        
+        self.followToggleButton.hidden = NO;        
+        self.followToggleButton.username = @"AppStore";        
         
         [self.view setNeedsDisplay];
     }
@@ -108,22 +93,6 @@
 {
     NSLog(@"createTweet:");
     
-}
-
-- (IBAction)followAppStore:(id)sender
-{
-    NSLog(@"followAppStore:");    
-    [self.twitterManager followUser:@"AppStore" usingBlock:^(BOOL success) {
-        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-    }];
-}
-
-- (IBAction)unfollowAppStore:(id)sender
-{
-    NSLog(@"unfollowAppStore:"); 
-    [self.twitterManager unfollowUser:@"AppStore" usingBlock:^(BOOL success) {    
-        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];        
-    }];
 }
 
 @end
