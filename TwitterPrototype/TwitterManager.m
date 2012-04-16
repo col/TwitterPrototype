@@ -20,7 +20,6 @@
 @synthesize accountType;
 @synthesize accounts;
 @synthesize selectedAccount;
-@synthesize delegate;
 @synthesize accessGranted;
 
 - (id)init
@@ -40,21 +39,34 @@
     [super dealloc];
 }
 
-- (void)followUser:(NSString *)username
+- (void)requestAccessUsingBlock:(TwitterManagerSuccessHandler)handler
 {
-    NSLog(@"followUser: %@", username);
+    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+        
+        NSLog(@"Access Granted = %@", granted ? @"YES" : @"NO");
+        self.accessGranted = granted;
+        if( granted )
+            self.accounts = [accountStore accountsWithAccountType:accountType];
+        handler(granted);        
+        
+    }];
+}
+
+- (void)followUser:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler
+{
+    NSLog(@"followUser: %@ usingBlock:", username);
     
     if( !self.selectedAccount ) {
         NSLog(@"No account selected!");
         return;
     }        
     
-    [self followUser:username withAccount:self.selectedAccount];
+    [self followUser:username withAccount:self.selectedAccount usingBlock:handler];
 }
 
-- (void)followUser:(NSString *)username withAccount:(ACAccount *)account
+- (void)followUser:(NSString *)username withAccount:(ACAccount *)account usingBlock:(TwitterManagerSuccessHandler)handler
 {
-    NSLog(@"followUser:'%@' withAccount:'%@'", username, account.username);
+    NSLog(@"followUser:'%@' withAccount:'%@' usingBlock:", username, account.username);
     
     NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc] init];
     [paramsDict setValue:username forKey:@"screen_name"];
@@ -71,8 +83,7 @@
         if( [urlResponse statusCode] == 200 )
         {
             // Success
-            if( self.delegate && [self.delegate respondsToSelector:@selector(followUserDidSucceed)] )
-                [self.delegate followUserDidSucceed];
+            handler(YES);
         }
         else 
         {
@@ -81,14 +92,13 @@
             NSLog(@"Localized Status = %@", [NSHTTPURLResponse localizedStringForStatusCode:urlResponse.statusCode]);
             NSLog(@"Error = %@", [error localizedDescription]);                     
             NSLog(@"Response Data String = %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);        
-            if( self.delegate && [self.delegate respondsToSelector:@selector(followUserDidFailWithError:)] )
-                [self.delegate followUserDidFailWithError:error];            
+            handler(NO);
         }
         
     }];
 }
 
-- (void)unfollowUser:(NSString *)username
+- (void)unfollowUser:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler
 {
     NSLog(@"unfollowUser: %@", username);
     
@@ -97,10 +107,10 @@
         return;
     }        
     
-    [self unfollowUser:username withAccount:self.selectedAccount];
+    [self unfollowUser:username withAccount:self.selectedAccount usingBlock:handler];
 }
 
-- (void)unfollowUser:(NSString *)username withAccount:(ACAccount *)account
+- (void)unfollowUser:(NSString *)username withAccount:(ACAccount *)account usingBlock:(TwitterManagerSuccessHandler)handler
 {
     NSLog(@"unfollowUser:'%@' withAccount:'%@'", username, account.username);
     
@@ -118,8 +128,7 @@
         if( [urlResponse statusCode] == 200 )
         {
             // Success
-            if( self.delegate && [self.delegate respondsToSelector:@selector(followUserDidSucceed)] )
-                [self.delegate unfollowUserDidSucceed];
+           handler(YES);
         }
         else 
         {
@@ -128,14 +137,13 @@
             NSLog(@"Localized Status = %@", [NSHTTPURLResponse localizedStringForStatusCode:urlResponse.statusCode]);
             NSLog(@"Error = %@", [error localizedDescription]);                     
             NSLog(@"Response Data String = %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);        
-            if( self.delegate && [self.delegate respondsToSelector:@selector(unfollowUserDidFailWithError:)] )
-                [self.delegate unfollowUserDidFailWithError:error];            
+            handler(NO);           
         }
         
     }];
 }
 
-- (void)isFollowing:(NSString *)username
+- (void)isFollowing:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler
 {
     NSLog(@"isFollowing: %@", username);
     
@@ -144,10 +152,10 @@
         return;
     }        
     
-    [self isFollowing:username withAccount:self.selectedAccount];    
+    [self isFollowing:username withAccount:self.selectedAccount usingBlock:handler];    
 }
 
-- (void)isFollowing:(NSString *)username withAccount:(ACAccount *)account
+- (void)isFollowing:(NSString *)username withAccount:(ACAccount *)account usingBlock:(TwitterManagerSuccessHandler)handler
 {
     NSLog(@"isFollowing:'%@' withAccount:'%@'", username, account.username);
     
@@ -164,12 +172,26 @@
         
         if( [urlResponse statusCode] == 200 )
         {
-            // TODO: process the response!
-            BOOL result = YES;
+            BOOL result = NO;
+            
+            //  Use the NSJSONSerialization class to parse the returned JSON
+            NSError *jsonError;
+            NSArray *followStatuses = [NSJSONSerialization JSONObjectWithData:responseData 
+                                                                options:NSJSONReadingMutableLeaves 
+                                                                  error:&jsonError];            
+            if( [followStatuses count] == 1 ) 
+            {
+                NSDictionary *dictionary = [followStatuses objectAtIndex:0];
+                NSArray *connections = [dictionary valueForKey:@"connections"];
+                if( [connections count] == 1 )
+                {
+                    NSString *connection = [connections objectAtIndex:0];
+                    result = [connection isEqualToString:@"following"];
+                }
+            }
             
             // Success
-            if( self.delegate && [self.delegate respondsToSelector:@selector(isFollowingUser:result:)] )
-                [self.delegate isFollowingUser:username result:result];
+            handler(result);
         }
         else 
         {
@@ -178,8 +200,7 @@
             NSLog(@"Localized Status = %@", [NSHTTPURLResponse localizedStringForStatusCode:urlResponse.statusCode]);
             NSLog(@"Error = %@", [error localizedDescription]);                     
             NSLog(@"Response Data String = %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);        
-            if( self.delegate && [self.delegate respondsToSelector:@selector(unfollowUserDidFailWithError:)] )
-                [self.delegate isFollowingUserDidFailWithError:error];            
+            handler(NO);
         }
         
     }];    
@@ -188,7 +209,7 @@
 - (BOOL)hasAccount
 {
     if( self.accounts == nil )
-        [self requestAccess];
+        [self requestAccessUsingBlock:nil];
     
     return [accounts count] > 0;        
 }
@@ -196,7 +217,7 @@
 - (BOOL)hasMultipleAccounts
 {
     if( self.accounts == nil )
-        [self requestAccess];
+        [self requestAccessUsingBlock:nil];
     
     return [accounts count] > 1;    
 }
@@ -204,7 +225,7 @@
 - (NSArray *)accounts
 {
     if( !accounts )
-        [self requestAccess];
+        [self requestAccessUsingBlock:nil];
     return accounts;
 }
 
@@ -214,29 +235,6 @@
         self.selectedAccount = [self.accounts objectAtIndex:0];
     
     return selectedAccount;
-}
-
-- (void)requestAccess
-{
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        
-        NSLog(@"Access Granted = %@", granted ? @"YES" : @"NO");
-        self.accessGranted = granted;
-        if( granted )
-        {
-            self.accounts = [accountStore accountsWithAccountType:accountType];
-            NSLog(@"# of accounts = %d", [self.accounts count]);
-            if( self.delegate && [self.delegate respondsToSelector:@selector(accessGranted)] )
-                [self.delegate accessGranted];
-        }
-        else 
-        {
-            NSLog(@"Error = %@", [error localizedDescription]);
-            if( self.delegate && [self.delegate respondsToSelector:@selector(accessDenied)] )
-                [self.delegate accessDenied];            
-        }        
-        
-    }];
 }
 
 @end
