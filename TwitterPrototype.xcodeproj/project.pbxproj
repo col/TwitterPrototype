@@ -22,6 +22,8 @@
 		EF586448153C16F70055D27A /* TwitterPrototypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF586447153C16F70055D27A /* TwitterPrototypeTests.m */; };
 		EF586452153C18630055D27A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF586451153C18630055D27A /* Twitter.framework */; };
 		EF586454153C18950055D27A /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF586453153C18950055D27A /* Accounts.framework */; };
+		EF586457153C31CB0055D27A /* TwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF586456153C31CB0055D27A /* TwitterManager.m */; };
+		EF586458153C31CB0055D27A /* TwitterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF586456153C31CB0055D27A /* TwitterManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		EF586447153C16F70055D27A /* TwitterPrototypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwitterPrototypeTests.m; sourceTree = "<group>"; };
 		EF586451153C18630055D27A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		EF586453153C18950055D27A /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		EF586455153C31CB0055D27A /* TwitterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterManager.h; sourceTree = "<group>"; };
+		EF586456153C31CB0055D27A /* TwitterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 				EF586431153C16F60055D27A /* ViewController.h */,
 				EF586432153C16F60055D27A /* ViewController.m */,
 				EF586423153C16F60055D27A /* Supporting Files */,
+				EF586455153C31CB0055D27A /* TwitterManager.h */,
+				EF586456153C31CB0055D27A /* TwitterManager.m */,
 			);
 			path = TwitterPrototype;
 			sourceTree = "<group>";
@@ -269,6 +275,7 @@
 				EF586429153C16F60055D27A /* main.m in Sources */,
 				EF58642D153C16F60055D27A /* AppDelegate.m in Sources */,
 				EF586433153C16F60055D27A /* ViewController.m in Sources */,
+				EF586457153C31CB0055D27A /* TwitterManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF586448153C16F70055D27A /* TwitterPrototypeTests.m in Sources */,
+				EF586458153C31CB0055D27A /* TwitterManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

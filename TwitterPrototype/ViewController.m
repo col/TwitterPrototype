@@ -11,15 +11,45 @@
 #import <Accounts/Accounts.h>
 
 @interface ViewController ()
-
+- (void)updateUI;
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message;
 @end
 
 @implementation ViewController
 
+@synthesize twitterManager;
+@synthesize hasAccountLabel, hasMultipleAccountsLabel, accountsLabel;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    // create a twitter manager
+    twitterManager = [[TwitterManager alloc] init];
+    twitterManager.delegate = self;
+    
+    [self updateUI];
+}
+
+- (void)updateUI 
+{
+    if( self.twitterManager.accessGranted )
+    {
+        // Has Account
+        self.hasAccountLabel.text = [NSString stringWithFormat:@"Has Account: %@", [twitterManager hasAccount] ? @"YES" : @"NO"];
+        
+        // Has Multiple Accounts
+        self.hasMultipleAccountsLabel.text = [NSString stringWithFormat:@"Has Multiple Accounts: %@", [twitterManager hasMultipleAccounts] ? @"YES" : @"NO"];    
+        
+        // Accounts
+        NSString *accountsString = @"Accounts: \n";
+        for(ACAccount *account in [twitterManager accounts]) {
+            accountsString = [accountsString stringByAppendingFormat:@"%@ \n", [account accountDescription]];
+        }
+        self.accountsLabel.text = accountsString;            
+                
+        [self.view setNeedsDisplay];
+    }
 }
 
 - (void)viewDidUnload
@@ -35,6 +65,12 @@
 
 #pragma mark - Twitter Actions
 
+- (IBAction)requestAccess:(id)sender
+{
+    NSLog(@"requestAccess:");
+    [self.twitterManager requestAccess];
+}
+
 - (IBAction)createTweet:(id)sender
 {
     NSLog(@"createTweet:");
@@ -44,88 +80,68 @@
 - (IBAction)followAppStore:(id)sender
 {
     NSLog(@"followAppStore:");    
-    
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];    
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        NSLog(@"Granted = %@", granted ? @"YES" : @"NO");
-        NSLog(@"Error = %@", [error localizedDescription]);
-        if(granted) {
-            // Get the list of Twitter accounts.
-            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-            
-            // For the sake of brevity, we'll assume there is only one Twitter account present.
-            // You would ideally ask the user which account they want to tweet from, if there is more than one Twitter account present.
-            if ([accountsArray count] > 0) {
-                // Grab the initial Twitter account to tweet from.
-                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
-                
-                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                [tempDict setValue:@"AppStore" forKey:@"screen_name"];
-                [tempDict setValue:@"true" forKey:@"follow"];
-                
-                TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/friendships/create.json"] 
-                                                             parameters:tempDict 
-                                                          requestMethod:TWRequestMethodPOST];
-                
-                
-                [postRequest setAccount:twitterAccount];
-                
-                [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                    NSLog(@"%@", output); 
-                    NSLog(@"Status = %@", [NSHTTPURLResponse localizedStringForStatusCode:urlResponse.statusCode]);
-                    NSLog(@"Error = %@", [error localizedDescription]);                     
-                    NSLog(@"Response Data String = %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);                    
-                }];
-            }
-        }
-    }];
+    [self.twitterManager followUser:@"AppStore"];
 }
 
 - (IBAction)unfollowAppStore:(id)sender
 {
     NSLog(@"unfollowAppStore:"); 
-    
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];    
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-        NSLog(@"Granted = %@", granted ? @"YES" : @"NO");
-        NSLog(@"Error = %@", [error localizedDescription]);
-        if(granted) {
-            // Get the list of Twitter accounts.
-            NSArray *accountsArray = [accountStore accountsWithAccountType:accountType];
-            
-            // For the sake of brevity, we'll assume there is only one Twitter account present.
-            // You would ideally ask the user which account they want to tweet from, if there is more than one Twitter account present.
-            if ([accountsArray count] > 0) {
-                // Grab the initial Twitter account to tweet from.
-                ACAccount *twitterAccount = [accountsArray objectAtIndex:0];
-                
-                NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-                [tempDict setValue:@"AppStore" forKey:@"screen_name"];
-                [tempDict setValue:@"false" forKey:@"follow"];
-                
-                TWRequest *postRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/friendships/destroy.json"] 
-                                                             parameters:tempDict 
-                                                          requestMethod:TWRequestMethodPOST];
-                
-                
-                [postRequest setAccount:twitterAccount];
-                
-                [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-                    NSString *output = [NSString stringWithFormat:@"HTTP response status: %i", [urlResponse statusCode]];
-                    NSLog(@"%@", output); 
-                    NSLog(@"Status = %@", [NSHTTPURLResponse localizedStringForStatusCode:urlResponse.statusCode]);
-                    NSLog(@"Error = %@", [error localizedDescription]);                     
-                    NSLog(@"Response Data String = %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);                    
-                }];
-            }
-        }
-    }];    
+    [self.twitterManager unfollowUser:@"AppStore"];   
 }
 
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+    [alertView release];
+}
+
+#pragma mark - TwitterManagerDelegate methods
+
+- (void)accessGranted
+{
+    NSLog(@"accessGranted");
+    [self updateUI];
+}
+
+- (void)accessDenied 
+{
+    NSLog(@"accessDenied");
+    [self updateUI];    
+}
+
+- (void)followUserDidSucceed
+{
+    NSLog(@"followUserDidSucceed");
+    [self showAlertWithTitle:@"Follow" andMessage:@"Success!"];        
+}
+
+- (void)followUserDidFailWithError:(NSError *)error
+{
+    NSLog(@"followUserDidFailWithError: %@", [error localizedDescription]);    
+    [self showAlertWithTitle:@"Follow Failed" andMessage:[error localizedDescription]];
+}
+
+- (void)unfollowUserDidSucceed
+{
+    NSLog(@"unfollowUserDidSucceed");
+    [self showAlertWithTitle:@"Unfollow" andMessage:@"Success!"];    
+}
+
+- (void)unfollowUserDidFailWithError:(NSError *)error
+{
+    NSLog(@"unfollowUserDidFailWithError: %@", [error localizedDescription]);
+    [self showAlertWithTitle:@"Unfollow Failed" andMessage:[error localizedDescription]];
+}
+
+- (void)isFollowingUser:(NSString *)username result:(BOOL)result
+{
+    NSLog(@"isFollowingUser:'%@' result:%@", username, result ? @"YES" : @"NO");    
+}
+
+- (void)isFollowingUserDidFailWithError:(NSError *)error
+{
+    [self showAlertWithTitle:@"Is Following? Failed" andMessage:[error localizedDescription]];    
+}
 
 @end
