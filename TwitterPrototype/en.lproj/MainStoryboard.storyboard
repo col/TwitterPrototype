@@ -27,7 +27,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="createTweet:" destination="2" eventType="touchUpInside" id="ql8-X6-2Gn"/>
                                     <action selector="requestAccess:" destination="2" eventType="touchUpInside" id="sBx-aM-Jcs"/>
                                 </connections>
                             </button>
@@ -92,9 +91,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
                 <relationship kind="action" name="createTweet:"/>
-                <relationship kind="action" name="followAppStore:"/>
                 <relationship kind="action" name="requestAccess:"/>
-                <relationship kind="action" name="unfollowAppStore:"/>
                 <relationship kind="outlet" name="accountsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="followToggleButton" candidateClass="TwitterFollowButton"/>
                 <relationship kind="outlet" name="hasAccountLabel" candidateClass="UILabel"/>
