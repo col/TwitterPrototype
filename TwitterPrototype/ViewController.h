@@ -10,4 +10,8 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction)createTweet:(id)sender;
+- (IBAction)followAppStore:(id)sender;
+- (IBAction)unfollowAppStore:(id)sender;
+
 @end

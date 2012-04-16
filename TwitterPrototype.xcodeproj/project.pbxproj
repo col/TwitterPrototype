@@ -20,6 +20,8 @@
 		EF58643D153C16F70055D27A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF58641E153C16F60055D27A /* Foundation.framework */; };
 		EF586445153C16F70055D27A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EF586443153C16F70055D27A /* InfoPlist.strings */; };
 		EF586448153C16F70055D27A /* TwitterPrototypeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF586447153C16F70055D27A /* TwitterPrototypeTests.m */; };
+		EF586452153C18630055D27A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF586451153C18630055D27A /* Twitter.framework */; };
+		EF586454153C18950055D27A /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF586453153C18950055D27A /* Accounts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,21 +39,23 @@
 		EF58641C153C16F60055D27A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EF58641E153C16F60055D27A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EF586420153C16F60055D27A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		EF586424153C16F60055D27A /* TwitterPrototype-Info.plist */ = {isa = PBXFileReference; path = "TwitterPrototype-Info.plist"; sourceTree = "<group>"; };
+		EF586424153C16F60055D27A /* TwitterPrototype-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TwitterPrototype-Info.plist"; sourceTree = "<group>"; };
 		EF586426153C16F60055D27A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EF586428153C16F60055D27A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EF58642A153C16F60055D27A /* TwitterPrototype-Prefix.pch */ = {isa = PBXFileReference; path = "TwitterPrototype-Prefix.pch"; sourceTree = "<group>"; };
-		EF58642B153C16F60055D27A /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		EF58642A153C16F60055D27A /* TwitterPrototype-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TwitterPrototype-Prefix.pch"; sourceTree = "<group>"; };
+		EF58642B153C16F60055D27A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EF58642C153C16F60055D27A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		EF58642F153C16F60055D27A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		EF586431153C16F60055D27A /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		EF586431153C16F60055D27A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		EF586432153C16F60055D27A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		EF586439153C16F70055D27A /* TwitterPrototypeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterPrototypeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF58643A153C16F70055D27A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		EF586442153C16F70055D27A /* TwitterPrototypeTests-Info.plist */ = {isa = PBXFileReference; path = "TwitterPrototypeTests-Info.plist"; sourceTree = "<group>"; };
+		EF586442153C16F70055D27A /* TwitterPrototypeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TwitterPrototypeTests-Info.plist"; sourceTree = "<group>"; };
 		EF586444153C16F70055D27A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EF586446153C16F70055D27A /* TwitterPrototypeTests.h */ = {isa = PBXFileReference; path = TwitterPrototypeTests.h; sourceTree = "<group>"; };
+		EF586446153C16F70055D27A /* TwitterPrototypeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwitterPrototypeTests.h; sourceTree = "<group>"; };
 		EF586447153C16F70055D27A /* TwitterPrototypeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwitterPrototypeTests.m; sourceTree = "<group>"; };
+		EF586451153C18630055D27A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		EF586453153C18950055D27A /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF586454153C18950055D27A /* Accounts.framework in Frameworks */,
+				EF586452153C18630055D27A /* Twitter.framework in Frameworks */,
 				EF58641D153C16F60055D27A /* UIKit.framework in Frameworks */,
 				EF58641F153C16F60055D27A /* Foundation.framework in Frameworks */,
 				EF586421153C16F60055D27A /* CoreGraphics.framework in Frameworks */,
@@ -100,6 +106,8 @@
 		EF58641B153C16F60055D27A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF586453153C18950055D27A /* Accounts.framework */,
+				EF586451153C18630055D27A /* Twitter.framework */,
 				EF58641C153C16F60055D27A /* UIKit.framework */,
 				EF58641E153C16F60055D27A /* Foundation.framework */,
 				EF586420153C16F60055D27A /* CoreGraphics.framework */,
