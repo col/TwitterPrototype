@@ -216,10 +216,5 @@
         }
     }
 }
-  
-//- (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)connectionIdentifier;
-//- (void)directMessagesReceived:(NSArray *)messages forRequest:(NSString *)connectionIdentifier;
-//- (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier;
-//- (void)connectionFinished:(NSString *)connectionIdentifier;
 
 @end
