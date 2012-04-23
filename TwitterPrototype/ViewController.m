@@ -24,34 +24,19 @@
 {
     [super viewDidLoad];
 
-    // create a twitter manager
-    twitterManager = [[TwitterManager alloc] init];
+    // Create a twitter manager
+    // If on iOS <= 4.3 this will return TwitterManageriOS4
+    // If on iOS >= 5.0 this will return TwitterManageriOS5
+    twitterManager = [TwitterManager twitterManager];          
         
-    self.followToggleButton.twitterManager = twitterManager;
-    
+    self.followToggleButton.twitterManager = twitterManager;    
     [self updateUI];
 }
 
 - (void)updateUI 
 {
     if( self.twitterManager.accessGranted )
-    {
-        // Show Labels
-        self.hasAccountLabel.hidden = self.hasMultipleAccountsLabel.hidden = self.accountsLabel.hidden = NO;
-        
-        // Has Account
-        self.hasAccountLabel.text = [NSString stringWithFormat:@"Has Account: %@", [twitterManager hasAccount] ? @"YES" : @"NO"];
-        
-        // Has Multiple Accounts
-        self.hasMultipleAccountsLabel.text = [NSString stringWithFormat:@"Has Multiple Accounts: %@", [twitterManager hasMultipleAccounts] ? @"YES" : @"NO"];    
-        
-        // Accounts
-        NSString *accountsString = @"Accounts: \n";
-        for(ACAccount *account in [twitterManager accounts]) {
-            accountsString = [accountsString stringByAppendingFormat:@"%@ \n", [account accountDescription]];
-        }
-        self.accountsLabel.text = accountsString;                                       
-        
+    {                                           
         // Follow / Unfollow Button
         self.followToggleButton.hidden = NO;        
         self.followToggleButton.username = @"AppStore";        
@@ -59,11 +44,8 @@
         [self.view setNeedsDisplay];
     }
     else 
-    {
-        // Hide Labels
-        self.hasAccountLabel.hidden = self.hasMultipleAccountsLabel.hidden = self.accountsLabel.hidden = YES;
-        
-        // Hide Buttons
+    {        
+        // Hide Button
         self.followToggleButton.hidden = YES;
     }
 }
@@ -84,7 +66,7 @@
 - (IBAction)requestAccess:(id)sender
 {
     NSLog(@"requestAccess:");
-    [self.twitterManager requestAccessUsingBlock:^(BOOL granted) {
+    [self.twitterManager requestAccessFromController:self usingBlock:^(BOOL granted) {
         [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];       
     }];
 }

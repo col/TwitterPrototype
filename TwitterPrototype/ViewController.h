@@ -13,11 +13,13 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic, retain) TwitterManager *twitterManager;
+@property (nonatomic, retain) IBOutlet TwitterFollowButton *followToggleButton;
 
+// iOS 5 Only
 @property (nonatomic, retain) IBOutlet UILabel *hasAccountLabel;
 @property (nonatomic, retain) IBOutlet UILabel *hasMultipleAccountsLabel;
 @property (nonatomic, retain) IBOutlet UILabel *accountsLabel;
-@property (nonatomic, retain) IBOutlet TwitterFollowButton *followToggleButton;
+
 
 - (IBAction)requestAccess:(id)sender;
 - (IBAction)createTweet:(id)sender;
