@@ -21,6 +21,7 @@ NSString * const Unfollow = @"Unfollow";
 
 @synthesize twitterManager, username;
 @synthesize activityIndicator;
+@synthesize viewController;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -67,10 +68,14 @@ NSString * const Unfollow = @"Unfollow";
 {
     username = [aUsername retain];
     
-    [self showActivity];
-    [self.twitterManager isFollowing:username usingBlock:^(BOOL following) {
-        [self hideActivityWithTitle:following ? Unfollow : Follow];
-    }];
+    // If we already have access granted, check if the user is already following.
+    if( self.twitterManager.accessGranted )
+    {
+//        [self showActivity];
+        [self.twitterManager isFollowing:username usingBlock:^(BOOL following) {
+            [self hideActivityWithTitle:following ? Unfollow : Follow];
+        }];
+    }
 }
 
 - (void)showActivity
@@ -90,18 +95,26 @@ NSString * const Unfollow = @"Unfollow";
 {
     NSString *title = [self titleForState:UIControlStateNormal];
     if( [title isEqualToString:Follow] ) 
-    {
-        [self showActivity];        
-        [self.twitterManager followUser:self.username usingBlock:^(BOOL success) {
-            [self hideActivityWithTitle:success ? Unfollow : Follow];
+    {   
+        [self.twitterManager requestAccessFromController:self.viewController usingBlock:^(BOOL success) {
+            if( success ) {
+                [self showActivity];        
+                [self.twitterManager followUser:self.username usingBlock:^(BOOL success) {
+                    [self hideActivityWithTitle:success ? Unfollow : Follow];
+                }];            
+            }
         }];
     }
     else if( [title isEqualToString:Unfollow] ) 
     {
-        [self showActivity];        
-        [self.twitterManager unfollowUser:self.username usingBlock:^(BOOL success) {
-            [self hideActivityWithTitle:success ? Follow : Unfollow];
-        }];        
+        [self.twitterManager requestAccessFromController:self.viewController usingBlock:^(BOOL success) {
+            if( success ) {
+                [self showActivity];        
+                [self.twitterManager unfollowUser:self.username usingBlock:^(BOOL success) {
+                    [self hideActivityWithTitle:success ? Follow : Unfollow];
+                }];        
+            }
+        }];
     }
 }
 

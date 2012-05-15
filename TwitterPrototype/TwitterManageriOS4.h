@@ -11,5 +11,10 @@
 #import "SA_OAuthTwitterController.h"
 
 @interface TwitterManageriOS4 : TwitterManager <SA_OAuthTwitterEngineDelegate, SA_OAuthTwitterControllerDelegate>
+{
+    BOOL accessGranted;
+}
+
+@property (nonatomic, assign) BOOL accessGranted;
 
 @end

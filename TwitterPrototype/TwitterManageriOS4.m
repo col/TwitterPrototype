@@ -43,6 +43,7 @@
 @synthesize followUserHandler, followUserIdentifier;
 @synthesize unfollowUserHandler, unfollowUserIdentifier;
 @synthesize isFollowingHandler, isFollowingIdentifier;
+@synthesize accessGranted;
 
 - (id)init
 {
@@ -59,6 +60,23 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (BOOL)accessGranted
+{
+    if( !accessGranted ) 
+    {
+        // Check if access has been granted previously but don't open the authentication view if it hasn't.
+        UIViewController *authController = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:engine delegate:self];            
+        accessGranted = (authController == nil);
+    }
+    
+    return accessGranted;        
+}
+
+- (void)setAaccessGranted:(BOOL)value
+{
+    accessGranted = value;
 }
 
 - (void)requestAccessFromController:(UIViewController *)controller usingBlock:(TwitterManagerSuccessHandler)handler

@@ -11,9 +11,13 @@
 #import <Accounts/Accounts.h>
 
 @interface TwitterManageriOS5 : TwitterManager
+{
+    BOOL accessGranted;
+}
 
 @property (nonatomic, readonly, retain) NSArray *accounts;
 @property (nonatomic, retain) ACAccount *selectedAccount;
+@property (nonatomic, assign) BOOL accessGranted;
 
 - (BOOL)hasAccount;
 - (BOOL)hasMultipleAccounts;

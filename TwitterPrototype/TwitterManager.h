@@ -13,15 +13,15 @@ typedef void(^TwitterManagerSuccessHandler)(BOOL success);
 
 @interface TwitterManager : NSObject
 
-@property (nonatomic, assign) BOOL accessGranted;
-
 + (TwitterManager *)twitterManager;
 
-//- (void)requestAccessUsingBlock:(TwitterManagerSuccessHandler)handler;
 - (void)requestAccessFromController:(UIViewController *)controller usingBlock:(TwitterManagerSuccessHandler)handler;
 
 - (void)followUser:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler;
 - (void)unfollowUser:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler;
 - (void)isFollowing:(NSString *)username usingBlock:(TwitterManagerSuccessHandler)handler;
+
+- (BOOL)accessGranted;
+- (void)setAaccessGranted:(BOOL)value;
 
 @end

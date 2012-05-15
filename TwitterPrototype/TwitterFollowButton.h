@@ -11,6 +11,7 @@
 
 @interface TwitterFollowButton : UIButton
 
+@property (nonatomic, retain) UIViewController *viewController;
 @property (nonatomic, retain) TwitterManager *twitterManager;
 @property (nonatomic, retain) NSString *username;
 

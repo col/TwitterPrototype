@@ -12,22 +12,24 @@
 
 @implementation TwitterManager
 
-@synthesize accessGranted;
+static TwitterManager *sharedTwitterManager = nil;
 
 + (TwitterManager *)twitterManager
 {
+    if( sharedTwitterManager )
+        return sharedTwitterManager;
+    
     if( NSClassFromString(@"TWRequest") )
     {
         // >= iOS 5
-        TwitterManager *twitterManager5 = [[TwitterManageriOS5 alloc] init];
-        return twitterManager5;    
+        sharedTwitterManager = [[TwitterManageriOS5 alloc] init];
     }
     else
     {
         // <= iOS 4
-        TwitterManager *twitterManager4 = [[TwitterManageriOS4 alloc] init];
-        return twitterManager4;        
+        sharedTwitterManager = [[TwitterManageriOS4 alloc] init];
     }
+    return sharedTwitterManager;        
 }
 
 - (void)requestAccessFromController:(UIViewController *)controller usingBlock:(TwitterManagerSuccessHandler)handler
@@ -56,6 +58,20 @@
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
+}
+
+- (BOOL)accessGranted
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];    
+}
+
+- (void)setAaccessGranted:(BOOL)value
+{
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];    
 }
 
 @end

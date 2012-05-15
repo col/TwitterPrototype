@@ -39,7 +39,16 @@
     [super dealloc];
 }
 
-//- (void)requestAccessUsingBlock:(TwitterManagerSuccessHandler)handler
+- (BOOL)accessGranted
+{   
+    return accessGranted;        
+}
+
+- (void)setAaccessGranted:(BOOL)value
+{
+    accessGranted = value;
+}
+
 - (void)requestAccessFromController:(UIViewController *)controller usingBlock:(TwitterManagerSuccessHandler)handler
 {
     [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
